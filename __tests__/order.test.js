@@ -54,4 +54,38 @@ describe("Teste 4: Remover Item", () => {
     expect(pedido.total).toBe(0);
   });
 });
+//TESTE 5: Pagamento - Sucesso
+describe("Teste 5: Pagamento - Sucesso", () => {
+  test("deve pagar pedido criado", () => {
+    const pedido = new Order(1);
+    
+    pedido.pay();  // Deve funcionar
+    
+    expect(pedido.status).toBe("paid");
+  });
+});
+
+//TESTE 6: Pagamento - Erro
+describe("Teste 6: Pagamento - Erro", () => {
+  test("deve dar erro ao pagar pedido já pago", () => {
+    const pedido = new Order(1);
+    pedido.pay();  // Paga primeiro
+    
+    // Tenta pagar novamente - deve dar erro
+    expect(() => pedido.pay()).toThrow("Order cannot be paid");
+  });
+});
+
+//TESTE 7: Completar Pedido - Sucesso
+describe("Teste 7: Completar Pedido - Sucesso", () => {
+  test("deve completar pedido pago", () => {
+    const pedido = new Order(1);
+    pedido.pay();        // Paga primeiro
+    
+    pedido.complete();   // Agora pode completar
+    
+    expect(pedido.status).toBe("completed");
+  });
+});
+
 
